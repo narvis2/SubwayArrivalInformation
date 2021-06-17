@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/station_fragment">
+    <fragment
+        android:id="@+id/station_fragment"
+        android:name="com.example.subwaymvvm.presentation.ui.station.StationFragment"
+        android:label="StationFragment"
+        tools:layout="@layout/fragment_station">
+        <action
+            android:id="@+id/action_stationFragment_to_stationArrivalsFragment"
+            app:destination="@id/station_arrivals_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/station_arrivals_fragment"
+        android:name="com.example.subwaymvvm.presentation.ui.arrival.StationArrivalsFragment"
+        android:label="StationArrivalsFragment"
+        tools:layout="@layout/fragment_station_arrivals"
+        >
+        <argument
+            android:name="station"
+            app:argType="com.example.subwaymvvm.domain.model.Station" />
+    </fragment>
+</navigation>
