@@ -1,13 +1,12 @@
 package com.example.subwaymvvm.data.repository
 
-import com.example.subwaymvvm.data.mapper.pairToStationList
-import com.example.subwaymvvm.data.mapper.pairToSubwayList
-import com.example.subwaymvvm.data.mapper.toCrossRefEntityList
-import com.example.subwaymvvm.data.mapper.toStationList
+import com.example.subwaymvvm.data.mapper.*
 import com.example.subwaymvvm.data.preference.PreferenceManager
 import com.example.subwaymvvm.data.repository.datasource.StationLocalDataSource
+import com.example.subwaymvvm.data.repository.datasource.StationRemoteDataSource
 import com.example.subwaymvvm.data.repository.datasource.StationStorage
 import com.example.subwaymvvm.data.util.Constants.KEY_LAST_DATABASE_UPDATED_TIME_MILLIS
+import com.example.subwaymvvm.domain.model.ArrivalInformation
 import com.example.subwaymvvm.domain.model.Station
 import com.example.subwaymvvm.domain.repository.StationRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -21,6 +20,7 @@ class StationRepositoryImpl(
     private val stationLocalDataSource: StationLocalDataSource,
     private val stationStorage: StationStorage,
     private val preferenceManager: PreferenceManager,
+    private val stationRemoteDataSource: StationRemoteDataSource,
     private val dispatcher: CoroutineDispatcher
 ) : StationRepository {
 
@@ -49,5 +49,23 @@ class StationRepositoryImpl(
             stationLocalDataSource.insertStationSubways(stationSubways)
             preferenceManager.setLong(KEY_LAST_DATABASE_UPDATED_TIME_MILLIS, fileUpdatedTimeMillis)
         }
+    }
+
+    override suspend fun getStationArrivals(stationName: String): List<ArrivalInformation> = withContext(dispatcher) {
+        val response = stationRemoteDataSource.getRealtimeStationArrivals(stationName)
+
+        return@withContext if (response.isSuccessful) {
+            response.body()?.realtimeArrivalList
+                ?.toArrivalInformation()
+                ?.distinctBy { it.direction }
+                ?.sortedBy { it.subway }
+                ?:throw RuntimeException("도착 정보를 불러오는 데에 실패하였습니다.")
+        } else {
+            throw  RuntimeException("도착 정보를 불러오는 데에 실패하였습니다.")
+        }
+    }
+
+    override suspend fun updateStation(station: Station) = withContext(dispatcher) {
+        stationLocalDataSource.updateStation(station.toStationEntity())
     }
 }

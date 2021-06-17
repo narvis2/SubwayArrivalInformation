@@ -1,7 +1,7 @@
 package com.example.subwaymvvm.data.repository.datasource
 
-import com.example.subwaymvvm.data.entity.StationEntity
-import com.example.subwaymvvm.data.entity.SubwayEntity
+import com.example.subwaymvvm.data.model.entity.StationEntity
+import com.example.subwaymvvm.data.model.entity.SubwayEntity
 
 interface StationStorage {
 

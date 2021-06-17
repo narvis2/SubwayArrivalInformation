@@ -8,4 +8,6 @@ object Constants {
 
     const val DATABASE_NAME = "station.db"
 
+    const val BASE_URL = "http://swopenapi.seoul.go.kr/"
+
 }

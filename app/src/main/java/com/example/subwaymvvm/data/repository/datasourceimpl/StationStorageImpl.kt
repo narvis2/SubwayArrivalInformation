@@ -1,7 +1,7 @@
 package com.example.subwaymvvm.data.repository.datasourceimpl
 
-import com.example.subwaymvvm.data.entity.StationEntity
-import com.example.subwaymvvm.data.entity.SubwayEntity
+import com.example.subwaymvvm.data.model.entity.StationEntity
+import com.example.subwaymvvm.data.model.entity.SubwayEntity
 import com.example.subwaymvvm.data.repository.datasource.StationStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.tasks.await

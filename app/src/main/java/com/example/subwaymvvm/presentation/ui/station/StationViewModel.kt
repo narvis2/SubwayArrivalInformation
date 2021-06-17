@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.subwaymvvm.domain.model.Station
 import com.example.subwaymvvm.domain.usecase.GetSavedStationsUseCase
 import com.example.subwaymvvm.domain.usecase.RefreshStationUseCase
+import com.example.subwaymvvm.domain.usecase.UpdateStationUseCase
 import com.example.subwaymvvm.presentation.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -13,7 +14,8 @@ import org.koin.core.component.getScopeName
 
 class StationViewModel(
     private val getSavedStationsUseCase: GetSavedStationsUseCase,
-    private val refreshStationUseCase: RefreshStationUseCase
+    private val refreshStationUseCase: RefreshStationUseCase,
+    private val updateStationUseCase: UpdateStationUseCase
 ) : BaseViewModel() {
 
     private val queryString : MutableStateFlow<String> = MutableStateFlow("")
@@ -46,7 +48,7 @@ class StationViewModel(
                 if (it.isNotEmpty()) {
                     showProgress()
                 }
-               _stations.postValue(it)
+                _stations.postValue(it)
                 hideProgress()
             }
             .catch {
@@ -56,5 +58,7 @@ class StationViewModel(
             .launchIn(viewModelScope)
     }
 
-
+    fun toggleStationFavorite(station: Station) = viewModelScope.launch {
+        updateStationUseCase(station.copy(isFavorited = !station.isFavorited))
+    }
 }

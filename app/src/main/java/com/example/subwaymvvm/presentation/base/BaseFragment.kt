@@ -15,12 +15,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.reflect.KClass
 
 abstract class BaseFragment<B: ViewDataBinding, VM: BaseViewModel>(
-    @LayoutRes private val layoutResId: Int,
-    clazz: KClass<VM>
+    @LayoutRes private val layoutResId: Int
 ) : Fragment() {
 
     protected lateinit var mViewDataBinding: B
-    protected val viewModel : VM by viewModel(clazz = clazz)
+    abstract val viewModel : VM
     private var mActivity: BaseActivity<*,*>? = null
     private lateinit var fetchJob: Job
 
@@ -45,13 +44,14 @@ abstract class BaseFragment<B: ViewDataBinding, VM: BaseViewModel>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mViewDataBinding.setVariable(BR.viewModel, viewModel)
         mViewDataBinding.lifecycleOwner = this
+        mViewDataBinding.setVariable(BR.viewModel, viewModel)
         mViewDataBinding.executePendingBindings()
 
-        fetchJob = viewModel.fetchData()
         onCreate()
+        fetchJob = viewModel.fetchData()
         observeData()
+
     }
 
     abstract fun observeData()

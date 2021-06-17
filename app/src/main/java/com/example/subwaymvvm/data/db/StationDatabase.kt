@@ -2,9 +2,9 @@ package com.example.subwaymvvm.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.subwaymvvm.data.entity.StationEntity
-import com.example.subwaymvvm.data.entity.StationSubwayCrossRefEntity
-import com.example.subwaymvvm.data.entity.SubwayEntity
+import com.example.subwaymvvm.data.model.entity.StationEntity
+import com.example.subwaymvvm.data.model.entity.StationSubwayCrossRefEntity
+import com.example.subwaymvvm.data.model.entity.SubwayEntity
 
 @Database(
     entities = [StationEntity::class, SubwayEntity::class, StationSubwayCrossRefEntity::class],

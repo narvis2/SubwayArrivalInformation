@@ -1,4 +1,4 @@
-package com.example.subwaymvvm.data.entity
+package com.example.subwaymvvm.data.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

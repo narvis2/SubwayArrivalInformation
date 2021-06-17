@@ -1,13 +1,9 @@
 package com.example.subwaymvvm.data.repository.datasource
 
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Transaction
-import com.example.subwaymvvm.data.entity.StationEntity
-import com.example.subwaymvvm.data.entity.StationSubwayCrossRefEntity
-import com.example.subwaymvvm.data.entity.StationWithSubwayEntity
-import com.example.subwaymvvm.data.entity.SubwayEntity
+import com.example.subwaymvvm.data.model.entity.StationEntity
+import com.example.subwaymvvm.data.model.entity.StationSubwayCrossRefEntity
+import com.example.subwaymvvm.data.model.entity.StationWithSubwayEntity
+import com.example.subwaymvvm.data.model.entity.SubwayEntity
 import kotlinx.coroutines.flow.Flow
 
 interface StationLocalDataSource {
@@ -21,4 +17,6 @@ interface StationLocalDataSource {
     suspend fun  insertCrossReferences(reference: List<StationSubwayCrossRefEntity>)
 
     suspend fun insertStationSubways(stationSubways: List<Pair<StationEntity, SubwayEntity>>)
+
+    suspend fun updateStation(station: StationEntity)
 }

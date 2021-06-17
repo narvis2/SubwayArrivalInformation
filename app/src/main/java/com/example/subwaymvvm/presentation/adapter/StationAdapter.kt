@@ -62,7 +62,7 @@ class StationAdapter : ListAdapter<Station, StationAdapter.StationViewHolder>(di
     companion object {
         val diffUtil = object : DiffUtil.ItemCallback<Station>() {
             override fun areItemsTheSame(oldItem: Station, newItem: Station): Boolean {
-                return oldItem.name == newItem.name
+                return oldItem.connectedSubways[0].id == newItem.connectedSubways[0].id
             }
 
             override fun areContentsTheSame(oldItem: Station, newItem: Station): Boolean {

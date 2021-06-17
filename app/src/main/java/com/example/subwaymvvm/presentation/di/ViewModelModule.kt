@@ -8,6 +8,8 @@ import org.koin.dsl.module
 
 val viewModelModule: Module = module {
     single<MainViewModel> { MainViewModel() }
-    single<StationViewModel> { StationViewModel(get(), get()) }
-    single<StationArrivalsViewModel> { StationArrivalsViewModel() }
+    single<StationViewModel> { StationViewModel(get(), get(),get()) }
+    single<StationArrivalsViewModel> { parametersHolder ->
+        StationArrivalsViewModel(parametersHolder.get(), get(), get())
+    }
 }

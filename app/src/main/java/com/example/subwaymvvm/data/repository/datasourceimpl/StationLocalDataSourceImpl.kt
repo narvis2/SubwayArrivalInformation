@@ -1,10 +1,10 @@
 package com.example.subwaymvvm.data.repository.datasourceimpl
 
 import com.example.subwaymvvm.data.db.StationDao
-import com.example.subwaymvvm.data.entity.StationEntity
-import com.example.subwaymvvm.data.entity.StationSubwayCrossRefEntity
-import com.example.subwaymvvm.data.entity.StationWithSubwayEntity
-import com.example.subwaymvvm.data.entity.SubwayEntity
+import com.example.subwaymvvm.data.model.entity.StationEntity
+import com.example.subwaymvvm.data.model.entity.StationSubwayCrossRefEntity
+import com.example.subwaymvvm.data.model.entity.StationWithSubwayEntity
+import com.example.subwaymvvm.data.model.entity.SubwayEntity
 import com.example.subwaymvvm.data.repository.datasource.StationLocalDataSource
 import kotlinx.coroutines.flow.Flow
 
@@ -30,5 +30,9 @@ class StationLocalDataSourceImpl(
 
     override suspend fun insertStationSubways(stationSubways: List<Pair<StationEntity, SubwayEntity>>) {
         return stationDao.insertStationSubways(stationSubways)
+    }
+
+    override suspend fun updateStation(station: StationEntity) {
+        stationDao.updateStation(station)
     }
 }

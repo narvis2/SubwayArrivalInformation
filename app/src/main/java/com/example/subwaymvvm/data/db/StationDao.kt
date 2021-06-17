@@ -1,10 +1,10 @@
 package com.example.subwaymvvm.data.db
 
 import androidx.room.*
-import com.example.subwaymvvm.data.entity.StationEntity
-import com.example.subwaymvvm.data.entity.StationSubwayCrossRefEntity
-import com.example.subwaymvvm.data.entity.StationWithSubwayEntity
-import com.example.subwaymvvm.data.entity.SubwayEntity
+import com.example.subwaymvvm.data.model.entity.StationEntity
+import com.example.subwaymvvm.data.model.entity.StationSubwayCrossRefEntity
+import com.example.subwaymvvm.data.model.entity.StationWithSubwayEntity
+import com.example.subwaymvvm.data.model.entity.SubwayEntity
 import com.example.subwaymvvm.data.mapper.pairToStationList
 import com.example.subwaymvvm.data.mapper.pairToSubwayList
 import com.example.subwaymvvm.data.mapper.toCrossRefEntityList
@@ -32,4 +32,7 @@ interface StationDao {
         insertSubways(stationSubways.pairToSubwayList())
         insertCrossReferences(stationSubways.toCrossRefEntityList())
     }
+
+    @Update
+    suspend fun updateStation(station : StationEntity)
 }

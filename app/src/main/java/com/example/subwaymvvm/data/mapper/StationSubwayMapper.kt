@@ -1,9 +1,9 @@
 package com.example.subwaymvvm.data.mapper
 
-import com.example.subwaymvvm.data.entity.StationEntity
-import com.example.subwaymvvm.data.entity.StationSubwayCrossRefEntity
-import com.example.subwaymvvm.data.entity.StationWithSubwayEntity
-import com.example.subwaymvvm.data.entity.SubwayEntity
+import com.example.subwaymvvm.data.model.entity.StationEntity
+import com.example.subwaymvvm.data.model.entity.StationSubwayCrossRefEntity
+import com.example.subwaymvvm.data.model.entity.StationWithSubwayEntity
+import com.example.subwaymvvm.data.model.entity.SubwayEntity
 import com.example.subwaymvvm.domain.model.Station
 import com.example.subwaymvvm.domain.model.Subway
 
@@ -12,6 +12,11 @@ fun StationWithSubwayEntity.toStation() =
         name = station.stationName,
         isFavorited = station.isFavorited,
         connectedSubways = subways.toSubwayList()
+    )
+fun Station.toStationEntity() =
+    StationEntity(
+        stationName = name,
+        isFavorited = isFavorited
     )
 
 fun List<SubwayEntity>.toSubwayList() : List<Subway> =
