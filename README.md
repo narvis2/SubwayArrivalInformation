@@ -14,7 +14,7 @@
 * Jetpack Navigation
 * Coroutne (Flow)
 * Firebase Storage
-* Room
+* Jetpack Room
 * Koin
 * Glide
 * LiveData
